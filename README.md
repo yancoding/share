@@ -42,7 +42,7 @@ cp .env.example .env
 npm run dev
 ```
 
-打开 `http://localhost:3000`。
+开发服务器监听 `0.0.0.0`，可通过本机 IP 在手机访问（例如 `http://192.168.1.100:3000`）。
 
 ## 4. MinIO 配置要求
 
