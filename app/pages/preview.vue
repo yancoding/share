@@ -313,10 +313,37 @@ const playerStyle = computed(() => {
 
 const videoUrl = computed(() => parseVideoUrl(route.query.video))
 
+async function notifyPreviewOpened() {
+  if (!videoUrl.value) {
+    return
+  }
+
+  try {
+    const response = await fetch('/api/preview-notify', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        videoUrl: videoUrl.value,
+      }),
+    })
+
+    const result = await response.json().catch(() => null) as { sent?: boolean; reason?: string } | null
+    if (!response.ok || !result?.sent) {
+      console.warn('Preview notification was not sent.', result?.reason || `HTTP ${response.status}`)
+    }
+  }
+  catch (error) {
+    console.warn('Failed to send preview notification.', error)
+  }
+}
+
 onMounted(() => {
   document.addEventListener('fullscreenchange', onFullscreenChange)
   document.addEventListener('webkitfullscreenchange', onFullscreenChange as EventListener)
   document.addEventListener('keydown', onKeydown)
+  void notifyPreviewOpened()
 })
 
 onBeforeUnmount(() => {

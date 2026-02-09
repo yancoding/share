@@ -10,6 +10,7 @@
 - 无数据库，视频地址不落库
 - 上传目标为 MinIO (S3 兼容)
 - 分享地址由预览路由 + 查询字符串拼接
+- 进入预览播放页后自动发送邮件通知
 
 ## 1. 安装依赖
 
@@ -35,6 +36,13 @@ cp .env.example .env
 - `MINIO_SECRET_KEY`: MinIO Secret Key
 - `MINIO_BUCKET`: 存储桶名称
 - `NUXT_PUBLIC_APP_BASE_URL`: 前端对外地址（生成分享链接时使用）
+- `SMTP_HOST`: SMTP 服务器地址
+- `SMTP_PORT`: SMTP 端口，默认 `587`
+- `SMTP_SECURE`: 是否启用 SSL（`true`/`false`）
+- `SMTP_USER`: SMTP 用户名
+- `SMTP_PASS`: SMTP 密码/授权码
+- `PREVIEW_NOTIFY_TO`: 预览通知收件人邮箱（可多个，逗号分隔）
+- `PREVIEW_NOTIFY_FROM`: 发件人邮箱（可选，不填默认使用 `SMTP_USER`）
 
 ## 3. 运行
 
