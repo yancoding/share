@@ -1,5 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true }
+  devtools: { enabled: true },
+  runtimeConfig: {
+    minioEndpoint: process.env.MINIO_ENDPOINT || '',
+    minioPublicBaseUrl: process.env.MINIO_PUBLIC_BASE_URL || '',
+    minioUploadUrlExpires: Number.parseInt(process.env.MINIO_UPLOAD_URL_EXPIRES || '3600', 10),
+    minioRegion: process.env.MINIO_REGION || 'us-east-1',
+    minioAccessKey: process.env.MINIO_ACCESS_KEY || '',
+    minioSecretKey: process.env.MINIO_SECRET_KEY || '',
+    minioBucket: process.env.MINIO_BUCKET || '',
+    public: {
+      appBaseUrl: process.env.NUXT_PUBLIC_APP_BASE_URL || ''
+    }
+  }
 })
